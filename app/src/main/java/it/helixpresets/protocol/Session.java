@@ -18,8 +18,13 @@ public final class Session {
     private final ArrayDeque<Message> inbox = new ArrayDeque<>();
     private ByteArrayOutputStream buf;
     private int curFlag, curId, curLen;
+    private int nextRequestId = 1000;
+    private boolean autoAck;
 
     Session(Link link, int host, int dev) { this.link = link; this.host = host; this.dev = dev; }
+
+    /** Per la sessione degli eventi: ogni messaggio completo riceve subito un ack. */
+    void setAutoAck(boolean on) { autoAck = on; }
 
     // ---------- invio ----------
 
@@ -33,7 +38,7 @@ public final class Session {
 
     public void open() throws IOException {
         seq = 0; recv = 0; lastAck = Frame.HOST_BASE;
-        openReply = false; closeReply = false; buf = null; inbox.clear();
+        openReply = false; closeReply = false; buf = null; inbox.clear(); nextRequestId = 1000;
         byte[] counter = new byte[4];
         Frame.put32(counter, 0, Frame.HOST_BASE);
         link.write(new Frame(Frame.CLASS_OPEN, host, dev, 0, Frame.TYPE_OPEN, Frame.OPEN_PARAMS_HOST, counter));
@@ -59,8 +64,11 @@ public final class Session {
         sendMessage(id, new byte[] { (byte) id });
     }
 
-    public void sendRequest(int requestId, int command, long... args) throws IOException {
-        sendMessage(channel, MsgPack.request(requestId, command, args));
+    /** Invia un comando con il prossimo id (contatore per sessione da 1000) e restituisce l'id usato. */
+    public int sendRequest(int command, long... args) throws IOException {
+        int id = nextRequestId++;
+        sendMessage(channel, MsgPack.request(id, command, args));
+        return id;
     }
 
     public void sendAck() throws IOException {
@@ -105,10 +113,14 @@ public final class Session {
         if (buf.size() >= curLen) {
             inbox.add(new Message(dev, curFlag, curId, Arrays.copyOf(buf.toByteArray(), curLen)));
             buf = null;
+            if (autoAck) sendAck();
         } else {
             sendAck(); // come nel log: un ack dopo ogni trama intermedia
         }
     }
+
+    /** Messaggio già arrivato, oppure null. */
+    public Message poll() { return inbox.poll(); }
 
     public Message await(long timeoutMs, String what) throws IOException {
         link.waitFor(() -> !inbox.isEmpty(), timeoutMs, what);

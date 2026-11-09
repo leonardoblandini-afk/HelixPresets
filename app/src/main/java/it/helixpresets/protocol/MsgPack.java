@@ -93,4 +93,26 @@ public final class MsgPack {
         }
         return o.toByteArray();
     }
+
+    /** Testo leggibile di un valore decodificato (per il registro). */
+    public static String toText(Object o) {
+        if (o instanceof byte[]) {
+            byte[] b = (byte[]) o;
+            int n = b.length;
+            while (n > 0 && b[n - 1] == 0) n--;
+            boolean text = n > 0;
+            for (int k = 0; k < n; k++) if (b[k] < 32 || b[k] > 126) text = false;
+            return text ? "\"" + new String(b, 0, n, java.nio.charset.StandardCharsets.ISO_8859_1) + "\"" : "<" + b.length + " byte>";
+        }
+        if (o instanceof Map) {
+            StringBuilder s = new StringBuilder("{");
+            for (Map.Entry<?, ?> e : ((Map<?, ?>) o).entrySet()) {
+                if (s.length() > 1) s.append(", ");
+                s.append(toText(e.getKey())).append(": ").append(toText(e.getValue()));
+            }
+            return s.append('}').toString();
+        }
+        if (o instanceof List) return "[" + ((List<?>) o).size() + " voci]";
+        return String.valueOf(o);
+    }
 }

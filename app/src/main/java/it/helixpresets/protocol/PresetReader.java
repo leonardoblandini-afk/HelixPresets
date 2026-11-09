@@ -63,7 +63,8 @@ public final class PresetReader {
     }
 
     private static Map<Object, Object> request(Session s, int id, int cmd, long[] args) throws IOException {
-        if (args == null) s.sendRequest(id, cmd, (long[]) null); else s.sendRequest(id, cmd, args);
+        int sentId = s.sendRequest(cmd, args);
+        if (sentId != id) throw new IOException("ID mismatch: expected " + id + " but sent " + sentId);
         Message m = s.await(TIMEOUT, "risposta al comando " + cmd);
         Object o = MsgPack.decode(m.data);
         if (!(o instanceof Map)) throw new IOException("risposta non valida al comando " + cmd);
@@ -78,6 +79,7 @@ public final class PresetReader {
         Object res = reply.get(104L);
         if (!(res instanceof List)) throw new IOException("elenco preset assente");
         List<Preset> out = new ArrayList<>();
+        int pos = 0;
         for (Object rec : (List<?>) res) {
             Map<?, ?> m = (Map<?, ?>) rec;
             for (Map.Entry<?, ?> e : m.entrySet()) {
@@ -85,11 +87,11 @@ public final class PresetReader {
                 byte[] n = (byte[]) body.get(109L);
                 int len = n.length;
                 while (len > 0 && n[len - 1] == 0) len--;
-                out.add(new Preset(((Long) e.getKey()).intValue(), new String(n, 0, len, StandardCharsets.UTF_8)));
+                out.add(new Preset(pos++, ((Long) e.getKey()).intValue(), new String(n, 0, len, StandardCharsets.UTF_8)));
             }
         }
         Collections.sort(out, new Comparator<Preset>() {
-            @Override public int compare(Preset x, Preset y) { return x.slot - y.slot; }
+            @Override public int compare(Preset x, Preset y) { return x.key - y.key; }
         });
         return out;
     }

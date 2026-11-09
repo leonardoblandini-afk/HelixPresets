@@ -40,6 +40,12 @@ public final class Link {
         }
     }
 
+    /** Legge e smista le trame per ms millisecondi. */
+    void pumpFor(long ms) throws IOException {
+        long end = System.currentTimeMillis() + ms;
+        do { pump(30); } while (System.currentTimeMillis() < end);
+    }
+
     void waitFor(Condition c, long timeoutMs, String what) throws IOException {
         long end = System.currentTimeMillis() + timeoutMs;
         while (!c.ok()) {
