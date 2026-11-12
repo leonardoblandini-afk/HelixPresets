@@ -102,6 +102,47 @@ public final class MsgPack {
         return o.toByteArray();
     }
 
+    /**
+     * Comando 30 (imposta un parametro): {102: id, 100: 30, 101: {98: blocco, 29: true, 26: 0, 28: parametro, 119: valore float32}}.
+     * Stesso ordine dei campi della cattura di HX Edit.
+     */
+    public static byte[] setParameter(int requestId, int block, int param, float value) {
+        ByteArrayOutputStream o = new ByteArrayOutputStream();
+        o.write(0x83);
+        o.write(0x66); uint(o, requestId);
+        o.write(0x64); uint(o, 30);
+        o.write(0x65);
+        o.write(0x85);
+        o.write(98); uint(o, block);
+        o.write(29); o.write(0xc3);
+        o.write(26); o.write(0);
+        o.write(28); uint(o, param);
+        o.write(119); o.write(0xca);
+        int bits = Float.floatToIntBits(value);
+        for (int sh = 24; sh >= 0; sh -= 8) o.write(bits >>> sh);
+        return o.toByteArray();
+    }
+
+    /**
+     * Comando 71 (salva il preset): {102: id, 100: 71, 101: {107: banco, 108: posizione, 109: nome con NUL finale}}.
+     * Il nome è una stringa fixstr/str8, come nella cattura (CLE-CRU-LEA(S) + NUL = 15 byte, 0xaf).
+     */
+    public static byte[] savePreset(int requestId, int bank, int position, byte[] name) {
+        ByteArrayOutputStream o = new ByteArrayOutputStream();
+        o.write(0x83);
+        o.write(0x66); uint(o, requestId);
+        o.write(0x64); uint(o, 71);
+        o.write(0x65);
+        o.write(0x83);
+        o.write(0x6b); uint(o, bank);
+        o.write(0x6c); uint(o, position);
+        o.write(0x6d);
+        if (name.length < 32) o.write(0xa0 | name.length);
+        else { o.write(0xd9); o.write(name.length); }
+        o.write(name, 0, name.length);
+        return o.toByteArray();
+    }
+
     /** Testo leggibile di un valore decodificato (per il registro). */
     public static String toText(Object o) {
         if (o instanceof byte[]) {

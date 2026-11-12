@@ -71,6 +71,20 @@ public final class Session {
         return id;
     }
 
+    /** Comando 30: imposta il parametro `param` del blocco `block` (valore 0..1). */
+    public int sendParameter(int block, int param, float value) throws IOException {
+        int id = nextRequestId++;
+        sendMessage(channel, MsgPack.setParameter(id, block, param, value));
+        return id;
+    }
+
+    /** Comando 71: salva il preset (banco, posizione, nome con NUL finale). */
+    public int sendSave(int bank, int position, byte[] name) throws IOException {
+        int id = nextRequestId++;
+        sendMessage(channel, MsgPack.savePreset(id, bank, position, name));
+        return id;
+    }
+
     public void sendAck() throws IOException {
         send(Frame.TYPE_ACK, ack(), new byte[0]);
     }

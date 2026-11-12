@@ -12,6 +12,11 @@ public final class Link {
     private final Log log;
     private final Map<Integer, Session> byDevice = new HashMap<>();
 
+    private volatile boolean aborted;
+
+    /** Interrompe subito le attese in corso (usato da "Scollega"): waitFor e pumpFor escono con un'eccezione/subito. */
+    void abort() { aborted = true; }
+
     public Link(Transport tp, Log log) { this.tp = tp; this.log = log; }
 
     public Session session(int hostId, int deviceId) {
@@ -43,12 +48,13 @@ public final class Link {
     /** Legge e smista le trame per ms millisecondi. */
     void pumpFor(long ms) throws IOException {
         long end = System.currentTimeMillis() + ms;
-        do { pump(30); } while (System.currentTimeMillis() < end);
+        do { pump(30); } while (!aborted && System.currentTimeMillis() < end);
     }
 
     void waitFor(Condition c, long timeoutMs, String what) throws IOException {
         long end = System.currentTimeMillis() + timeoutMs;
         while (!c.ok()) {
+            if (aborted) throw new IOException("interrotto");
             if (System.currentTimeMillis() > end) throw new IOException("timeout: " + what);
             pump(100);
         }

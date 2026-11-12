@@ -62,7 +62,7 @@ public class ReplayTest {
         String snapOk = "-";
         if (selezione) {
             HelixConnection.PresetInfo info = conn.select(Integer.parseInt(a[2]));
-            String got3 = info.name + " | " + String.join(", ", info.snapshots) + " | attivo " + info.snapshot;
+            String got3 = info.name + " | " + String.join(", ", info.snapshots) + " | attivo " + info.snapshot; System.out.println("amp attivo: " + (info.amp == null ? "nessuno" : "blocco " + info.amp.block + " modello " + info.amp.model + " volume " + info.amp.volume));
             snapOk = got3.equals(a[3]) ? "ok" : "DIVERSO";
             System.out.println("preset: " + got3 + "  (atteso: " + a[3] + ") " + snapOk);
         }

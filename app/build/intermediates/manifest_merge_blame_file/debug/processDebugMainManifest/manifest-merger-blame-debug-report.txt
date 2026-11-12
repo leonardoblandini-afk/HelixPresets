@@ -22,8 +22,8 @@
 18        android:label="HX Presets"
 18-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:7:9-35
 19        android:testOnly="true"
-20        android:theme="@android:style/Theme.Material.Light.DarkActionBar" >
-20-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:8:9-74
+20        android:theme="@android:style/Theme.Material.NoActionBar" >
+20-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:8:9-66
 21        <activity
 21-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:9:9-23:20
 22            android:name="it.helixpresets.MainActivity"

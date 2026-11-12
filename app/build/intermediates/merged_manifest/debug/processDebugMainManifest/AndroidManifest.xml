@@ -17,7 +17,7 @@
         android:extractNativeLibs="false"
         android:label="HX Presets"
         android:testOnly="true"
-        android:theme="@android:style/Theme.Material.Light.DarkActionBar" >
+        android:theme="@android:style/Theme.Material.NoActionBar" >
         <activity
             android:name="it.helixpresets.MainActivity"
             android:exported="true"

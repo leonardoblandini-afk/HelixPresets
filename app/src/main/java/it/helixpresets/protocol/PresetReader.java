@@ -50,9 +50,9 @@ public final class PresetReader {
         a.sendAck();
 
         log.line("-- richieste");
-        request(a, 1000, 254, new long[0]);   // {} come nel log
-        request(a, 1001, 0, null);             // elenco con la sola voce "PRESETS"
-        Map<Object, Object> r = request(a, 1002, 1, new long[] { 107, 0, 101, 2 });
+        request(a, 254, new long[0]);   // {} come nel log
+        request(a, 0, null);             // elenco con la sola voce "PRESETS"
+        Map<Object, Object> r = request(a, 1, new long[] { 107, 0, 101, 2 });
         List<Preset> presets = parsePresets(r);
 
         a.sendAck();
@@ -62,9 +62,8 @@ public final class PresetReader {
         return presets;
     }
 
-    private static Map<Object, Object> request(Session s, int id, int cmd, long[] args) throws IOException {
-        int sentId = s.sendRequest(cmd, args);
-        if (sentId != id) throw new IOException("ID mismatch: expected " + id + " but sent " + sentId);
+    private static Map<Object, Object> request(Session s, int cmd, long[] args) throws IOException {
+        int id = s.sendRequest(cmd, args);
         Message m = s.await(TIMEOUT, "risposta al comando " + cmd);
         Object o = MsgPack.decode(m.data);
         if (!(o instanceof Map)) throw new IOException("risposta non valida al comando " + cmd);
@@ -91,7 +90,7 @@ public final class PresetReader {
             }
         }
         Collections.sort(out, new Comparator<Preset>() {
-            @Override public int compare(Preset x, Preset y) { return x.key - y.key; }
+            @Override public int compare(Preset x, Preset y) { return x.position - y.position; }
         });
         return out;
     }

@@ -26,7 +26,7 @@ INJECTED from C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\And
 	android:label
 		ADDED from C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:7:9-35
 	android:theme
-		ADDED from C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:8:9-74
+		ADDED from C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:8:9-66
 activity#it.helixpresets.MainActivity
 ADDED from C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:9:9-23:20
 	android:launchMode

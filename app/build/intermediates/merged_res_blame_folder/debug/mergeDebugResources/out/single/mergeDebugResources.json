@@ -1,11 +1,39 @@
 [
     {
-        "merged": "it.helixpresets.app-debug-4:/layout_row_preset.xml.flat",
-        "source": "it.helixpresets.app-main-6:/layout/row_preset.xml"
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\layout\\activity_main.xml"
     },
     {
-        "merged": "it.helixpresets.app-debug-4:/xml_device_filter.xml.flat",
-        "source": "it.helixpresets.app-main-6:/xml/device_filter.xml"
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\xml_device_filter.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\xml\\device_filter.xml"
+    },
+    {
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\drawable_bg_card_sel.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\drawable\\bg_card_sel.xml"
+    },
+    {
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\drawable_bg_status.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\drawable\\bg_status.xml"
+    },
+    {
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\drawable_bg_gray.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\drawable\\bg_gray.xml"
+    },
+    {
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\layout_row_preset.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\layout\\row_preset.xml"
+    },
+    {
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\drawable_bg_green.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\drawable\\bg_green.xml"
+    },
+    {
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\drawable_bg_red.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\drawable\\bg_red.xml"
+    },
+    {
+        "merged": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-debug-4:\\drawable_bg_card.xml.flat",
+        "source": "C:\\Users\\leona\\.gradle\\daemon\\8.7\\it.helixpresets.app-main-6:\\drawable\\bg_card.xml"
     },
     {
         "merged": "it.helixpresets.app-debug-4:/layout_activity_main.xml.flat",

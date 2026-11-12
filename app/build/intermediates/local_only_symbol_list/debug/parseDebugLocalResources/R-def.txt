@@ -1,15 +1,30 @@
 R_DEF: Internal format may change without notice
 local
+drawable bg_card
+drawable bg_card_sel
+drawable bg_gray
+drawable bg_green
+drawable bg_red
+drawable bg_status
+id card
 id connect
+id copyLog
 id disconnect
 id log
 id name
+id number
 id presets
+id resetUsb
 id snap1
 id snap2
 id snap3
 id status
 id toggleLog
+id volLabel
+id volMinus
+id volPlus
+id volState
+id volValue
 layout activity_main
 layout row_preset
 xml device_filter
