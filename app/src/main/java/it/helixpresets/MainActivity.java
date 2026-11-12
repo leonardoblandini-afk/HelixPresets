@@ -1,5 +1,6 @@
 package it.helixpresets;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -15,8 +16,6 @@ import android.hardware.usb.UsbManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,9 +36,10 @@ public class MainActivity extends Activity {
 
     private UsbManager usb;
     private final List<Preset> presets = new ArrayList<>();
-    private ArrayAdapter<Preset> adapter;
+    private PresetAdapter adapter;
     private TextView status, logView;
     private Button button;
+    private volatile Preset current;
     private final StringBuilder log = new StringBuilder();
 
     // Tutto il traffico USB passa da questo unico thread: richieste, selezioni e lettura degli eventi.
@@ -57,6 +57,7 @@ public class MainActivity extends Activity {
         }
     };
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override protected void onCreate(Bundle b) {
         super.onCreate(b);
         setContentView(R.layout.activity_main);
@@ -66,13 +67,15 @@ public class MainActivity extends Activity {
         button = findViewById(R.id.connect);
         ListView list = findViewById(R.id.presets);
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, presets);
-        list.setAdapter(adapter);
-        list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> p, View v, int pos, long id) { select(presets.get(pos)); }
+        adapter = new PresetAdapter(this, presets, new PresetAdapter.Listener() {
+            @Override public void onPreset(Preset p) { select(p, 0); }
+            @Override public void onSnapshot(Preset p, int snapshot) { select(p, snapshot); }
         });
+        list.setAdapter(adapter);
         button.setOnClickListener(v -> connect());
+        findViewById(R.id.disconnect).setOnClickListener(v -> disconnect());
+        findViewById(R.id.toggleLog).setOnClickListener(v ->
+                logView.setVisibility(logView.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE));
 
         IntentFilter f = new IntentFilter(ACTION_PERMISSION);
         if (Build.VERSION.SDK_INT >= 33) registerReceiver(permissionReceiver, f, Context.RECEIVER_NOT_EXPORTED);
@@ -131,9 +134,9 @@ public class MainActivity extends Activity {
                 runOnUiThread(() -> {
                     presets.clear();
                     presets.addAll(result);
-                    adapter.notifyDataSetChanged();
+                    adapter.setSelected(-1);
                 });
-                setStatus(result.size() + " preset letti. Tocca un preset per selezionarlo sulla HX Stomp.");
+                setStatus(result.size() + " preset letti. Tocca un preset per selezionarlo e leggere i suoi snapshot.");
                 poller = io.scheduleWithFixedDelay(this::pollEvents, 500, 300, TimeUnit.MILLISECONDS);
             } catch (Exception e) {
                 setStatus("Errore: " + e.getMessage());
@@ -144,18 +147,43 @@ public class MainActivity extends Activity {
         });
     }
 
-    /** Tocco sulla lista: comando 20 con la posizione del preset nell'elenco. */
-    private void select(final Preset p) {
+    /**
+     * Tocco su un preset (snapshot = 0) o su un bottone snapshot (1..3). Il preset viene selezionato sulla HX Stomp
+     * e si leggono i nomi dei suoi snapshot; con un bottone snapshot si passa poi a quello snapshot.
+     */
+    private void select(final Preset p, final int snapshot) {
         if (helix == null) { setStatus("Non collegato"); return; }
         setStatus("Seleziono " + p + "…");
         io.execute(() -> {
             try {
                 if (helix == null) return;
-                helix.select(p.position);
-                setStatus("Selezionato: " + p);
+                if (current != p) {
+                    HelixConnection.PresetInfo info = helix.select(p.position);
+                    p.snapshots = info.snapshots;
+                    p.activeSnapshot = info.snapshot;
+                    current = p;
+                    final int index = presets.indexOf(p);
+                    runOnUiThread(() -> adapter.setSelected(index));
+                }
+                if (snapshot == 0) setStatus("Selezionato: " + p);
+                else {
+                    if (p.activeSnapshot != snapshot) {
+                        p.activeSnapshot = helix.selectSnapshot(snapshot);
+                        runOnUiThread(() -> adapter.notifyDataSetChanged());
+                    }
+                    setStatus("Snapshot " + snapshot + " di " + p);
+                }
             } catch (Exception e) {
-                setStatus("Errore nella selezione: " + e.getMessage());
+                setStatus("Preset " + p + ": " + e.getMessage());
             }
+        });
+    }
+
+    private void disconnect() {
+        io.execute(() -> {
+            closeAll();
+            runOnUiThread(() -> { presets.clear(); adapter.setSelected(-1); });
+            setStatus("Scollegato");
         });
     }
 
@@ -178,6 +206,7 @@ public class MainActivity extends Activity {
         }
         usbConn = null;
         usbIface = null;
+        current = null;
     }
 
     private void setStatus(final String s) {

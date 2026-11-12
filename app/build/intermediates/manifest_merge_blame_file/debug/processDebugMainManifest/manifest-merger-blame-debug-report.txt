@@ -1,0 +1,61 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="it.helixpresets"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-feature
+11-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:4:5-86
+12        android:name="android.hardware.usb.host"
+12-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:4:19-59
+13        android:required="true" />
+13-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:4:60-83
+14
+15    <application
+15-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:6:5-24:19
+16        android:debuggable="true"
+17        android:extractNativeLibs="false"
+18        android:label="HX Presets"
+18-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:7:9-35
+19        android:testOnly="true"
+20        android:theme="@android:style/Theme.Material.Light.DarkActionBar" >
+20-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:8:9-74
+21        <activity
+21-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:9:9-23:20
+22            android:name="it.helixpresets.MainActivity"
+22-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:10:13-41
+23            android:exported="true"
+23-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:11:13-36
+24            android:launchMode="singleTop" >
+24-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:12:13-43
+25            <intent-filter>
+25-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:13:13-16:29
+26                <action android:name="android.intent.action.MAIN" />
+26-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:14:17-69
+26-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:14:25-66
+27
+28                <category android:name="android.intent.category.LAUNCHER" />
+28-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:15:17-77
+28-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:15:27-74
+29            </intent-filter>
+30            <intent-filter>
+30-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:17:13-19:29
+31                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+31-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:18:17-90
+31-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:18:25-87
+32            </intent-filter>
+33
+34            <meta-data
+34-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:20:13-22:57
+35                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+35-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:21:17-79
+36                android:resource="@xml/device_filter" />
+36-->C:\Users\leona\AndroidStudioProjects\HelixPresets\app\src\main\AndroidManifest.xml:22:17-54
+37        </activity>
+38    </application>
+39
+40</manifest>

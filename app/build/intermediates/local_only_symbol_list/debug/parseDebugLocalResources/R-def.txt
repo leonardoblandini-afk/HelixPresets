@@ -1,0 +1,15 @@
+R_DEF: Internal format may change without notice
+local
+id connect
+id disconnect
+id log
+id name
+id presets
+id snap1
+id snap2
+id snap3
+id status
+id toggleLog
+layout activity_main
+layout row_preset
+xml device_filter

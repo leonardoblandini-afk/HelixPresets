@@ -1,82 +1,82 @@
 000   * VELVET *
-001   (T) CLE-CRU-LEA
-002   A view to a kill
-003   CLE-CRU-LEAD
-004   DRT-CRU-LEAD
-005   OWNER OF A LONEL
-006   (BJ) CR-TR-LE
-007   I JUST DIE IN YO
-008   (AB) CL-CR-LE
-009   ACU-CRU-LEAD
-010   mCRU-CRU-LEA
-011   * DURAN *
-012   CLE-DRT-LEA
-013   CLE-CRU-LEA
-014   mCRU-CRU-LEA
+001   CLE-CRU-LEA(S)
+002   DRT-CLE-LEA(S)
+003   CRU-DRT-LEA(S)
+004   LEA-CLE-CRU(S)
+005   (T) CLE-CRU-LEA
+006   CLE-CRU-LEAD
+007   OWNER OF A LONEL
+008   DRT-CRU-LEAD
+009   (T) DRT-CRU-LEA
+010   (BJ) CR-TR-LE
+011   I JUST DIE IN YO
+012   (AB) CL-CR-LE
+013   ACU-CRU-LEAD
+014   * DURAN *
 015   CLE-CRU-LEA
-016   The come undone
-017   CLE-CRU-LEA(S)
-018    * DURAN DURAN *
-019   CLE-CRU-LEA
-020   CLE-DRT-LEA
-021   AMB-CRU-LEA
-022   The union of the
-023   Is there somethi
-024   Matter of feelin
-025   The reflex
-026   Save a prayer
-027   The new moon on 
-028   Vertigo
-029   Girls on film
-030   Hugry like the w
-031   Ordinary world
-032   (vuoto)
-033   Planet earth
-034   CRU-DRT-LEA(S)
-035   Wild boys
-036   Skin trade
-037   (vuoto)
-038   (vuoto)
-039   Notorius
-040   New religion
-041   ?? VELVET OVERV
-042   (vuoto)
-043   Rio
-044   Stop loving you
+016   CLE-DRT-LEA
+017   CLE-CRU-LEA
+018   mCRU-CRU-LEA
+019   The come undone
+020    * DURAN DURAN *
+021   CLE-CRU-LEA
+022   CLE-DRT-LEA
+023   AMB-CRU-LEA
+024   mCRU-CRU-LEA
+025   A view to a kill
+026   The union of the
+027   Is there somethi
+028   Matter of feelin
+029   The reflex
+030   Save a prayer
+031   The new moon on 
+032   Vertigo
+033   Girls on film
+034   Hugry like the w
+035   Ordinary world
+036   The come undone
+037   New religion
+038   Notorius
+039   Wild boys
+040   Planet earth
+041   Skin trade
+042   Rio
+043   Pressure off
+044   *** FINE DURA***
 045   (vuoto)
-046   LEA-CLE-CRU(S)
-047   *** FINE DURA***
+046   (vuoto)
+047   (vuoto)
 048   CLE-CRU-LEAD
-049   Pressure off
-050   Child's Antem
-051   DRT-CLE-LEA(S)
-052   (T) DRT-CRU-LEA
-053   I wont you hold 
-054   One vision
+049   (vuoto)
+050   (vuoto)
+051   ?? VELVET OVERV
+052   Child's Antem
+053   One vision
+054   Stop loving you
 055   Owner of a lonel
 056   It's my life
-057   I just die in yo
-058   What a feeling
-059   Fame
-060   Maniac
-061   Bed roses
-062   Enjoy the silenc
-063   I will remember
-064   Mamma mia
-065   Dancing queen
-066   The show must go
-067   Rock the night
-068   Living on a pray
-069   Superstitious
-070   *** FINE VELV***
-071   (vuoto)
+057   I wont you hold 
+058   I just die in yo
+059   What a feeling
+060   Fame
+061   Maniac
+062   Bed roses
+063   Enjoy the silenc
+064   I will remember
+065   Mamma mia
+066   Dancing queen
+067   The show must go
+068   Rock the night
+069   Living on a pray
+070   Superstitious
+071   *** FINE VELV***
 072   (vuoto)
-073   BOG MIX 1
-074   BOG MIX 2
-075   BOG MIX 3
-076   My Ventoux
-077   (vuoto)
-078   The come undone
+073   (vuoto)
+074   BOG MIX 1
+075   BOG MIX 2
+076   BOG MIX 3
+077   My Ventoux
+078   (vuoto)
 079   (vuoto)
 080   (vuoto)
 081   (vuoto)
@@ -87,30 +87,30 @@
 086   (vuoto)
 087   (vuoto)
 088   ?? DURAN  new
-089   A view to a kill
-090   The union of the
-091   Is there somethi
-092   Matter of feelin
-093   The reflex
-094   Save a prayer
-095   The new moon on 
-096   Vertigo
-097   Girls on film
-098   Hugry like the w
-099   The come undone
-100   Ordinary world
-101   New religion
-102   Notorius
-103   Wild boys
-104   Planet earth
-105   Rio
-106   Skin trade
-107   *** FINE DURA***
-108   CLE-CRU-LEA
-109   CLE-DRT-LEA
-110   AMB-CRU-LEA
+089   CLE-CRU-LEA
+090   CLE-DRT-LEA
+091   AMB-CRU-LEA
+092   mCRU-CRU-LEA
+093   A view to a kill
+094   The union of the
+095   Is there somethi
+096   Matter of feelin
+097   The reflex
+098   Save a prayer
+099   The new moon on 
+100   Vertigo
+101   Girls on film
+102   Hugry like the w
+103   Ordinary world
+104   The come undone
+105   New religion
+106   Notorius
+107   Wild boys
+108   Planet earth
+109   Rio
+110   Skin trade
 111   Pressure off
-112   mCRU-CRU-LEA
+112   *** FINE DURA***
 113   (vuoto)
 114   (vuoto)
 115   (vuoto)

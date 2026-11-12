@@ -24,6 +24,14 @@ public final class MsgPack {
         return v;
     }
 
+    /** Legge più valori MessagePack consecutivi fino alla fine dei dati (il blob del preset ne contiene tre). */
+    public static List<Object> decodeAll(byte[] data) {
+        MsgPack m = new MsgPack(data);
+        List<Object> out = new ArrayList<>();
+        while (m.i < data.length) out.add(m.read());
+        return out;
+    }
+
     private int u8() { return b[i++] & 0xff; }
     private long un(int n) { long v = 0; for (int k = 0; k < n; k++) v = (v << 8) | u8(); return v; }
     private long sn(int n) { long v = un(n); int sh = 64 - 8 * n; return (v << sh) >> sh; }

@@ -3,13 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="12dp">
 
-    <Button
-        android:id="@+id/connect"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Collega e leggi i preset" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/connect"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Collega e leggi i preset" />
+
+        <Button
+            android:id="@+id/disconnect"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Scollega" />
+
+        <Button
+            android:id="@+id/toggleLog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Registro" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/status"
@@ -23,13 +44,16 @@
         android:id="@+id/presets"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:divider="#22000000"
+        android:dividerHeight="1dp" />
 
     <TextView
         android:id="@+id/log"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="140dp"
         android:fontFamily="monospace"
+        android:gravity="bottom"
         android:textSize="10sp"
-        android:gravity="bottom" />
+        android:visibility="gone" />
 </LinearLayout>

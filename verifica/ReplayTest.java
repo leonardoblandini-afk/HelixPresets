@@ -17,14 +17,18 @@ public class ReplayTest {
 
         FakeDevice(List<byte[]> capture) {
             Map<Integer, List<byte[]>> cur = new HashMap<>();
+            int last = -1; // sessione dell'ultima trama host non-ack
             for (byte[] raw : capture) {
                 Frame f = Frame.parse(raw, raw.length);
                 if (isHost(f)) {
                     if (f.type == Frame.TYPE_ACK || f.type == Frame.TYPE_CLOSE) continue;
                     List<byte[]> b = new ArrayList<>();
                     cur.put(f.dst, b);
+                    last = f.dst;
                     batches.computeIfAbsent(f.dst, k -> new ArrayDeque<>()).add(b);
                     capturedHost.computeIfAbsent(f.dst, k -> new ArrayList<>()).add(f);
+                } else if (f.src == 0x03f0 && last != 0x03f0 && cur.get(last) != null) {
+                    cur.get(last).add(raw);          // eventi spontanei: arrivano dopo l'ultima richiesta, di qualunque sessione
                 } else if (cur.get(f.src) != null) {
                     cur.get(f.src).add(raw);
                 }
@@ -52,7 +56,18 @@ public class ReplayTest {
         }
         FakeDevice dev = new FakeDevice(capture);
         List<String> logLines = new ArrayList<>();
-        List<Preset> presets = PresetReader.read(dev, logLines::add);
+        HelixConnection conn = new HelixConnection(dev, logLines::add);
+        List<Preset> presets = conn.connect();
+        boolean selezione = a.length > 2;
+        String snapOk = "-";
+        if (selezione) {
+            HelixConnection.PresetInfo info = conn.select(Integer.parseInt(a[2]));
+            String got3 = info.name + " | " + String.join(", ", info.snapshots) + " | attivo " + info.snapshot;
+            snapOk = got3.equals(a[3]) ? "ok" : "DIVERSO";
+            System.out.println("preset: " + got3 + "  (atteso: " + a[3] + ") " + snapOk);
+        }
+        conn.close();
+        if (selezione) for (String l : logLines) if (l.startsWith("evento") || l.startsWith("-- cambio")) System.out.println(l);
 
         // 1) elenco preset
         List<String> got = new ArrayList<>();
@@ -83,6 +98,6 @@ public class ReplayTest {
                 + ", identiche anche in seq/tipo/ack: " + sameExact);
         int acks = 0; for (Frame f : dev.sent) if (f.type == Frame.TYPE_ACK) acks++;
         System.out.println("ack puri inviati: " + acks + ", trame totali inviate: " + dev.sent.size());
-        System.exit(got.equals(want) && tot == same ? 0 : 1);
+        System.exit(got.equals(want) && tot == same && !snapOk.equals("DIVERSO") ? 0 : 1);
     }
 }
